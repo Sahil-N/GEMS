@@ -17,9 +17,7 @@
   <h1>Number to Guess: <span id="number-to-guess"></span></h1>
 
   <!-- Note that this div is now empty. We will fill it dynamically -->
-  <div id="crystals">
-  </div>
-  <div>
+  <div id="contsent-game-data">
     <div id="wins"></div>
     <div id="losses"></div>
   </div>
@@ -29,7 +27,7 @@
   <button class="btn btn3">btn3</button>
   <button class="btn btn4">btn4</button>
 </div>
-<div>
+<div id="current-game-data">
   <div id="result"></div>
 </div>
 
@@ -82,13 +80,14 @@ var gameState = {
     gameReset: function(){
       // call function again, generate new num
       gameState.targetNumber = randomNumberGenerate(19, 120);
+      $("#number-to-guess").text(gameState.targetNumber);
       
       // set resultnum to 0 √
       this.resultNumber = 0;
       $("#result").html("total: " + gameState.resultNumber);
 
       // give buttons new values
-      gemsValue.assignNumber();
+      gemsValue.resetRandomValue();
 
     }
 };
@@ -100,9 +99,6 @@ function randomNumberGenerate(min, max){
    //0.1 - 0.9
    //0.1 * (12 - 2 + 1) + 2 =
 }
-
-//subject ot relocation 
-  $("#number-to-guess").text(gameState.targetNumber);
 
   var gemsValue = {
 
@@ -151,6 +147,8 @@ function randomNumberGenerate(min, max){
 $(document).ready(function(){
   randomNumberGenerate(19, 120);
   // $("#crystals").html(gameState.resultNumber);
+  //subject ot relocation 
+  $("#number-to-guess").text(gameState.targetNumber);
   $("#wins").html("wins: " + gameState.wins);
   $("#losses").html("losses: " + gameState.losses);
   $("#result").html("total: " + gameState.resultNumber);
