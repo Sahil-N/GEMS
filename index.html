@@ -54,21 +54,34 @@ var gameState = {
     // display winning text on page
     // if result number is greater than > target number than lose increases by 1
     // display losing text on page
-    if(this.resultNumber < this.targetNumber ){
-      if(this.resultNumber === this.targetNumber ){
-        this.wins++;  
-        $("#crystals").html(this.wins);
-        console.log("wins " + this.wins);
-      } else {
+    
+      if(this.resultNumber > this.targetNumber ){
         this.losses++;
-        $("#crystals").html(this.losses);
-        console.log("losses " + this.losses);
+        console.log("losses " + this.losses); 
+        this.gameReset();    
+      
+      } else if(this.resultNumber === this.targetNumber) {
+        this.wins++;
+        console.log("wins " + this.wins);
+        this.gameReset();
+      } else {
+        return;
       }
+
+    },
+
+    gameReset: function(){
+      // call function again, generate new num
+      gameState.targetNumber = randomNumberGenerate(19, 120);
+      
+      // set resultnum to 0 √
+      this.resultNumber = 0;
+
+      // give buttons new values
+      gemsValue.assignNumber();
+
     }
-  }
-
-
-}
+};
 
 
 // create a random number - tested.
