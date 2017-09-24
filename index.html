@@ -78,16 +78,18 @@ var gameState = {
     },
 
     gameReset: function(){
-      // call function again, generate new num
+      // call function again, generate new num display new number
       gameState.targetNumber = randomNumberGenerate(19, 120);
       $("#number-to-guess").text(gameState.targetNumber);
       
-      // set resultnum to 0 √
+      // set resultnum to 0, display reset value
       this.resultNumber = 0;
       $("#result").html("total: " + gameState.resultNumber);
 
       // give buttons new values
       gemsValue.resetRandomValue();
+      // gemsValue.assignNumber();
+      // gemsValue.assignValueToHtml();
 
     }
 };
@@ -141,6 +143,11 @@ function randomNumberGenerate(min, max){
     //Function to reset data
     resetRandomValue : function() {
       this.gems = [];
+      // console.log(this.gems);
+      this.assignNumber();
+      // console.log(this.gems);
+      this.assignValueToHtml();
+
     },
   };
 
@@ -161,6 +168,7 @@ $(document).ready(function(){
     var clickValue = parseInt($(this).val());
     gameState.updateResult(clickValue);
   });
+
   console.log("button value: " + gemsValue.gems);
 });
 
