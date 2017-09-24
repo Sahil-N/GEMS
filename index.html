@@ -19,11 +19,18 @@
   <!-- Note that this div is now empty. We will fill it dynamically -->
   <div id="crystals">
   </div>
+  <div>
+    <div id="wins"></div>
+    <div id="losses"></div>
+  </div>
 <div class="btn-group">
   <button class="btn btn1">btn1</button>
   <button class="btn btn2">btn2</button>
   <button class="btn btn3">btn3</button>
   <button class="btn btn4">btn4</button>
+</div>
+<div>
+  <div id="result"></div>
 </div>
 
   <!-- JAVASCRIPT  -->
@@ -47,9 +54,9 @@ var gameState = {
   updateResult: function(num){
     this.resultNumber += num;
 
-    console.log("result number: " + this.resultNumber);
+    // console.log("result number: " + this.resultNumber);
     // display resultNum in page
-    $("#crystals").html(this.resultNumber);
+    $("#result").html("total: " +this.resultNumber);
     // if target number is  === result number then win goes up by 1 
     // display winning text on page
     // if result number is greater than > target number than lose increases by 1
@@ -57,12 +64,14 @@ var gameState = {
     
       if(this.resultNumber > this.targetNumber ){
         this.losses++;
-        console.log("losses " + this.losses); 
+        $("#losses").html("losses: " + this.losses);
+        // console.log("losses " + this.losses); 
         this.gameReset();    
       
       } else if(this.resultNumber === this.targetNumber) {
         this.wins++;
-        console.log("wins " + this.wins);
+        $("#wins").html("wins: " + this.wins);
+        // console.log("wins " + this.wins);
         this.gameReset();
       } else {
         return;
@@ -76,6 +85,7 @@ var gameState = {
       
       // set resultnum to 0 √
       this.resultNumber = 0;
+      $("#result").html("total: " + gameState.resultNumber);
 
       // give buttons new values
       gemsValue.assignNumber();
@@ -104,10 +114,9 @@ function randomNumberGenerate(min, max){
     replaceOne : function(max) {
         //takes the gems array and selects a random index
         var gemNumIndex = Math.floor(Math.random()*(max));
-        console.log("random index: " + gemNumIndex);
+        // console.log("random index: " + gemNumIndex);
         // at random index replace value with 1
         this.gems.splice(gemNumIndex, 1, 1);
-        console.log("updated array " + this.gems);
     },
 
     // run randomnumbgenerate function 4 times using a for loop. add those values to array
@@ -120,7 +129,7 @@ function randomNumberGenerate(min, max){
           gemsValue.gems.push(num);
         } 
       }
-      console.log("gem array: " + this.gems);
+      // console.log("gem array: " + this.gems);
       this.replaceOne(this.gems.length);
     },
     // assign each button a value from gems array
@@ -141,7 +150,10 @@ function randomNumberGenerate(min, max){
 
 $(document).ready(function(){
   randomNumberGenerate(19, 120);
-  $("#crystals").html(gameState.resultNumber);
+  // $("#crystals").html(gameState.resultNumber);
+  $("#wins").html("wins: " + gameState.wins);
+  $("#losses").html("losses: " + gameState.losses);
+  $("#result").html("total: " + gameState.resultNumber);
   gemsValue.assignNumber(); //on ready assign gem value
   gemsValue.assignValueToHtml(); // give buttons value
 
@@ -151,7 +163,7 @@ $(document).ready(function(){
     var clickValue = parseInt($(this).val());
     gameState.updateResult(clickValue);
   });
-
+  console.log("button value: " + gemsValue.gems);
 });
 
  
