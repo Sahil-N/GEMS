@@ -37,9 +37,6 @@
 
   <script type="text/javascript">
 
-
-
-
 //starting the game, add values to gems (from gem object) and add to html
 var gameState = {
 
@@ -94,7 +91,6 @@ var gameState = {
     }
 };
 
-
 // create a random number - tested.
 function randomNumberGenerate(min, max){
    return Math.floor(Math.random()*(max-min+1)+ min);
@@ -102,55 +98,56 @@ function randomNumberGenerate(min, max){
    //0.1 * (12 - 2 + 1) + 2 =
 }
 
-  var gemsValue = {
+// create gems and assign random value 
+var gemsValue = {
 
-    gems: [],
+  gems: [],
 
-    //until array equal 4, generate numbers and add to array, if not already in array, push to array. create seperate function for randomizing the array order.... call r
+  //until array equal 4, generate numbers and add to array, if not already in array, push to array. create seperate function for randomizing the array order.... call r
 
-    // replace a randon index in gems with a 1. max is gem length (3)
-    replaceOne : function(max) {
-        //takes the gems array and selects a random index
-        var gemNumIndex = Math.floor(Math.random()*(max));
-        // console.log("random index: " + gemNumIndex);
-        // at random index replace value with 1
-        this.gems.splice(gemNumIndex, 1, 1);
-    },
+  // replace a randon index in gems with a 1. max is gem length (3)
+  replaceOne : function(max) {
+      //takes the gems array and selects a random index
+      var gemNumIndex = Math.floor(Math.random()*(max));
+      // console.log("random index: " + gemNumIndex);
+      // at random index replace value with 1
+      this.gems.splice(gemNumIndex, 1, 1);
+  },
 
-    // run randomnumbgenerate function 4 times using a for loop. add those values to array
-    assignNumber : function(){
-      // run until gems is length of 4
-      while(this.gems.length < 4){
-        var num = randomNumberGenerate(2,12)
-        // gems arrray doesn't aleady have num add num
-        if(!this.gems.includes(num)){
-          gemsValue.gems.push(num);
-        } 
-      }
-      // console.log("gem array: " + this.gems);
-      this.replaceOne(this.gems.length);
-    },
-    // assign each button a value from gems array
-    assignValueToHtml : function(){
-      // each  gem item === a button there are 4 buttons and 4 array items.
-        // all buttons have btn call and a unique class of btn1-4
-        $('.btn1').val(this.gems[0]);
-        $('.btn2').val(this.gems[1]);
-        $('.btn3').val(this.gems[2]);
-        $('.btn4').val(this.gems[3]);
-    },
+  // run randomnumbgenerate function 4 times using a for loop. add those values to array
+  assignNumber : function(){
+    // run until gems is length of 4
+    while(this.gems.length < 4){
+      var num = randomNumberGenerate(2,12)
+      // gems arrray doesn't aleady have num add num
+      if(!this.gems.includes(num)){
+        gemsValue.gems.push(num);
+      } 
+    }
+    // console.log("gem array: " + this.gems);
+    this.replaceOne(this.gems.length);
+  },
+  // assign each button a value from gems array
+  assignValueToHtml : function(){
+    // each  gem item === a button there are 4 buttons and 4 array items.
+      // all buttons have btn call and a unique class of btn1-4
+      $('.btn1').val(this.gems[0]);
+      $('.btn2').val(this.gems[1]);
+      $('.btn3').val(this.gems[2]);
+      $('.btn4').val(this.gems[3]);
+  },
 
-    //Function to reset data
-    resetRandomValue : function() {
-      this.gems = [];
-      // console.log(this.gems);
-      this.assignNumber();
-      // console.log(this.gems);
-      this.assignValueToHtml();
+  //Function to reset data
+  resetRandomValue : function() {
+    this.gems = [];
+    // console.log(this.gems);
+    this.assignNumber();
+    // console.log(this.gems);
+    this.assignValueToHtml();
+  },
+};
 
-    },
-  };
-
+// click to start the game
 $(document).ready(function(){
   randomNumberGenerate(19, 120);
   // $("#crystals").html(gameState.resultNumber);
